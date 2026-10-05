@@ -1,7 +1,16 @@
 body {
+  font-family: Arial, sans-serif;
+
   background-image: url("Picture 22.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   color: white;
-  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
 }
