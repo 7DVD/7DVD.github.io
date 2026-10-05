@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Me - 7DVD</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+
+      background-image: url("Picture 22.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
+      color: white;
+      line-height: 1.6;
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h2 {
+      font-size: 1.8rem;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+    }
+
+    main {
+      max-width: 1000px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 20px;
+
+      flex: 1;
+    }
+
+    .about {
+      background: rgba(0, 0, 0, 0.78);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .about h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+    }
+
+    .about h2 {
+      color: #4da6ff;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    .about p {
+      margin-bottom: 15px;
+      color: #e6e6e6;
+    }
+
+    .about ul {
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+
+    .about li {
+      margin-bottom: 8px;
+      color: #e6e6e6;
+    }
+
+    .highlight {
+      color: #4da6ff;
+      font-weight: bold;
+    }
+
+    .project {
+      background: rgba(255, 255, 255, 0.08);
+      border-left: 4px solid #007bff;
+      padding: 20px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .about {
+        padding: 25px 20px;
+      }
+
+      .about h1 {
+        font-size: 2rem;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>7DVD</h2>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="AboutMe.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <section class="about">
+
+      <h1>About Me</h1>
+
+      <p>
+        I am a <span class="highlight">cybersecurity enthusiast</span>
+        with a strong interest in learning through hands-on experimentation,
+        CTFs, security challenges, Linux, networking, and security tooling.
+      </p>
+
+      <p>
+        I spend a lot of my time experimenting with systems, writing tools,
+        solving challenges, learning new technologies, and improving my
+        understanding of how systems and applications work.
+      </p>
+
+
+      <h2>Programming</h2>
+
+      <p>
+        I currently work with several programming and scripting languages,
+        including:
+      </p>
+
+      <ul>
+        <li>Python</li>
+        <li>Go</li>
+        <li>JavaScript</li>
+        <li>SQL</li>
+        <li>C++</li>
+        <li>Bash</li>
+      </ul>
+
+      <p>
+        Python is one of the languages I use most for security tooling and
+        automation. I have also developed my own security toolkit. One of my
+        earlier Python projects was eventually abandoned because I lost
+        interest in it, but I am currently developing another toolkit that
+        I continue to work on regularly.
+      </p>
+
+      <p>
+        I am still learning Java and continue to study it as I develop my
+        programming skills. C++ is also currently at a beginner level for me,
+        while I am continuing to develop my knowledge of SQL for CTFs,
+        challenges, and security testing.
+      </p>
+
+
+      <h2>Linux & Systems</h2>
+
+      <p>
+        Linux is a major part of my daily workflow. I am extremely comfortable
+        working with Linux and have spent significant time using distributions
+        such as <span class="highlight">Arch Linux, Ubuntu, Fedora, and Kali Linux</span>.
+      </p>
+
+      <p>
+        My Linux experience includes package management, software installation,
+        system administration, logs, services, processes, permissions,
+        systemctl, cron jobs, networking, and UFW.
+      </p>
+
+      <p>
+        I also regularly work with virtual machines and have extensive
+        hands-on experience with <span class="highlight">Oracle VM VirtualBox</span>,
+        particularly with Kali Linux and Arch Linux. I have configured
+        systems, experimented with encrypted disks, and used isolated
+        environments to test different configurations and software.
+      </p>
+
+
+      <h2>Networking</h2>
+
+      <p>
+        I have a strong interest in networking and understand many commonly
+        used ports and the protocols and services associated with them.
+        I have worked with TCP/IP networking, SSH, virtual machines,
+        routing, and network connections.
+      </p>
+
+      <p>
+        I also use Wireshark for packet analysis and have spent time learning
+        how different network services communicate.
+      </p>
+
+
+      <h2>Cybersecurity Tools</h2>
+
+      <p>
+        Some of the tools I regularly use and experiment with include:
+      </p>
+
+      <ul>
+        <li>Wireshark</li>
+        <li>Metasploit</li>
+        <li>Nmap</li>
+        <li>Socat</li>
+        <li>Hydra</li>
+        <li>Hashcat</li>
+        <li>Steghide</li>
+        <li>ExifTool</li>
+        <li>Binwalk</li>
+      </ul>
+
+
+      <h2>Web Security</h2>
+
+      <p>
+        I have practiced web security through CTFs and security challenges,
+        including challenges involving:
+      </p>
+
+      <ul>
+        <li>File inclusion</li>
+        <li>Cross-Site Scripting (XSS)</li>
+        <li>IDOR</li>
+        <li>Web scripting</li>
+        <li>Client-side challenges</li>
+      </ul>
+
+      <p>
+        I am continuing to expand my knowledge of SQL and SQL injection
+        through challenges and practical exercises.
+      </p>
+
+
+      <h2>CTFs & Platforms</h2>
+
+      <p>
+        I regularly practice cybersecurity through CTFs and challenges.
+        The platforms I use include:
+      </p>
+
+      <ul>
+        <li>Root-Me</li>
+        <li>TryHackMe</li>
+        <li>Hack The Box</li>
+        <li>OpenBugBounty</li>
+      </ul>
+
+      <p>
+        On Root-Me, I regularly work on challenges involving
+        <span class="highlight">
+          steganography, web security, scripting, programming, and networking
+        </span>.
+      </p>
+
+      <p>
+        I solve challenges frequently and currently maintain a position
+        within the top 25,000 on Root-Me.
+      </p>
+
+
+      <h2>Steganography & Reverse Engineering</h2>
+
+      <p>
+        I have some practical knowledge of steganography and have worked
+        with tools such as Steghide, ExifTool, and Binwalk while solving
+        challenges.
+      </p>
+
+      <p>
+        I am also beginning to explore reverse engineering. So far, I have
+        completed several introductory challenges using Cutter and am
+        continuing to develop my understanding of binary analysis.
+      </p>
+
+
+      <h2>Vampa</h2>
+
+      <div class="project">
+
+        <p>
+          <span class="highlight">Vampa</span> is my own cybersecurity
+          toolkit, which I actively develop in Go.
+        </p>
+
+        <p>
+          It brings together different security, reconnaissance,
+          information-gathering, system, networking, web, and reporting
+          capabilities into a single toolkit.
+        </p>
+
+        <p>
+          Vampa currently includes modules for DNS enumeration, IP lookups,
+          email and username lookups, phone lookups, encryption and hashing,
+          web reconnaissance, crawling, technology fingerprinting,
+          HTTP headers, SSL information, URL analysis, subdomain discovery,
+          system information, process information, services, storage,
+          memory, networking, logs, security checks, and reporting.
+        </p>
+
+        <p>
+          The project also contains CTF and OSINT reporting functionality,
+          wordlists, and a separate VampaC2 component.
+        </p>
+
+      </div>
+
+
+      <h2>Security Research</h2>
+
+      <p>
+        I have also experimented with malware-related concepts in controlled
+        environments as part of my security learning. One of my projects
+        involved researching how encrypted data could be hidden within
+        image data and handled through a dropper-based experiment.
+      </p>
+
+      <p>
+        These experiments are primarily intended to help me understand how
+        offensive techniques work so that I can continue developing my
+        defensive, analytical, and reverse-engineering skills.
+      </p>
+
+
+      <h2>Always Learning</h2>
+
+      <p>
+        Cybersecurity is a field where there is always something new to learn.
+        I am still developing my skills, especially in areas such as reverse
+        engineering, C++, SQL, and more advanced security research.
+      </p>
+
+      <p>
+        My main goal is to keep learning by building things, breaking things
+        in controlled environments, solving challenges, and understanding
+        how the technology actually works underneath the surface.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>&copy; 2026 7DVD Website. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
