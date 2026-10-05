@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>7DVD Website</title>
 
+  <title>7DVD Website</title>
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,7 +17,6 @@
     body {
       font-family: Arial, sans-serif;
 
-      /* Background image */
       background-image: url("Picture 22.jpg");
       background-size: cover;
       background-position: center;
@@ -25,6 +26,9 @@
       color: white;
       line-height: 1.6;
       min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -44,18 +48,25 @@
       margin: 0 10px;
     }
 
+    nav a:hover {
+      color: #007bff;
+    }
+
     main {
       max-width: 900px;
+      width: 100%;
       margin: 50px auto;
       padding: 20px;
       text-align: center;
+
       flex: 1;
-}
+    }
 
     .hero {
       background: rgba(0, 0, 0, 0.65);
       padding: 50px 20px;
       border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .hero h1 {
@@ -81,7 +92,6 @@
     }
 
     footer {
-      margin-top: 50px;
       padding: 20px;
       text-align: center;
       background: rgba(0, 0, 0, 0.7);
@@ -92,6 +102,7 @@
 
 <body>
 
+  <!-- Header -->
   <header>
     <h2>7DVD Website</h2>
 
@@ -102,17 +113,22 @@
     </nav>
   </header>
 
+  <!-- Main content -->
   <main>
     <section class="hero">
       <h1>7DVD Website</h1>
+
       <p>Welcome to the main page</p>
+
       <a href="#" class="button">Get Started</a>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2026 7DVD Website. All rights reserved.</p>
   </footer>
 
 </body>
+
 </html>
