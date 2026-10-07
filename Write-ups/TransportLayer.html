@@ -1,1 +1,127 @@
-THIS PAGE IS UNDER WORK
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transport Layer, TCP and UDP explained.">
+  <title>7DVD | Transport Layer</title>
+  <link rel="stylesheet" href="Main/style.css">
+</head>
+
+<body>
+  <header>
+  </header>
+
+  <main>
+    <section class="content">
+      <h1>Transport Layer</h1>
+
+      <h2>TCP</h2>
+
+      <p class="intro">
+        When devices communicate across a network, they need a way to identify which
+        application or service should receive the data. This is where port numbers are
+        used. A port helps identify the specific service that the data is being sent to.
+        The Transport Layer also controls how data is divided into smaller pieces and
+        delivered between devices.
+      </p>
+
+      <p class="intro">
+        Two of the most commonly used Transport Layer protocols are TCP and UDP.
+        TCP, or Transmission Control Protocol, is a connection-oriented protocol. Before
+        data is sent, TCP establishes a connection between the client and the server using
+        a process called the three-way handshake.
+      </p>
+
+      <p class="intro">
+        The three-way handshake consists of SYN, SYN-ACK, and ACK. First, the client
+        sends a SYN packet to the server to request a connection. The server responds
+        with a SYN-ACK packet, which confirms that it has received the request and is
+        willing to establish the connection. Finally, the client sends an ACK packet to
+        confirm the response. Once this process is complete, the connection is
+        established and data can be transferred.
+      </p>
+
+      <p class="intro">
+        TCP is designed to make sure that data arrives reliably and in the correct order.
+        It uses acknowledgements and retransmission to deal with packets that may be
+        lost during transmission. When the communication is finished, TCP also uses a
+        controlled process to close the connection. This helps ensure that the
+        communication is properly ended rather than simply stopping unexpectedly.
+      </p>
+
+      <h2>UDP</h2>
+
+      <p class="intro">
+        UDP, or User Datagram Protocol, works differently from TCP. UDP is a
+        connectionless protocol, which means it does not establish a connection using a
+        three-way handshake before sending data. Instead, the sender can send UDP
+        datagrams directly to the destination.
+      </p>
+
+      <p class="intro">
+        Because UDP does not establish a connection or wait for acknowledgements, it
+        generally has less overhead and can be faster than TCP. However, UDP does not
+        guarantee that packets will arrive, that they will arrive in the correct order,
+        or that lost packets will be retransmitted. This makes UDP useful for applications
+        where speed and low delay are more important than guaranteed delivery.
+      </p>
+
+      <h2>What Is the Main Difference?</h2>
+
+      <p class="intro">
+        The main difference between TCP and UDP is how they handle communication and
+        reliability. TCP uses a three-way handshake consisting of SYN, SYN-ACK, and ACK
+        before data is transferred. It then uses acknowledgements, sequencing, and
+        retransmission to help ensure that data reaches the destination correctly.
+      </p>
+
+      <p class="intro">
+        UDP does not use a handshake and does not guarantee delivery. It sends
+        datagrams without waiting for the receiver to acknowledge each packet. This
+        makes UDP faster and gives it lower overhead, but it also means that packets can
+        be lost, duplicated, or arrive out of order.
+      </p>
+
+      <p class="intro">
+        TCP is therefore generally considered more reliable than UDP, but it is not
+        necessarily more secure. Security depends on additional protocols and
+        technologies, such as TLS. UDP can also be used for legitimate and secure
+        applications when the application is designed to handle its limitations.
+      </p>
+
+      <h2>What Are the Uses of UDP and TCP?</h2>
+
+      <p class="intro">
+        TCP is commonly used when reliable delivery is important. For example, web
+        traffic using HTTP and HTTPS generally uses TCP, as do many email protocols
+        such as SMTP. TCP is useful for these applications because losing or changing
+        data can cause problems. If a packet is lost, TCP can request that the missing
+        data is retransmitted.
+      </p>
+
+      <p class="intro">
+        UDP is commonly used when speed and low latency are more important than
+        guaranteed delivery. Examples include DNS lookups, VoIP calls, online gaming,
+        and some video and audio streaming applications. In these situations, waiting
+        for a missing packet could create noticeable delays. For example, during a
+        voice or video call, receiving the latest information quickly can be more
+        important than retransmitting an old packet.
+      </p>
+
+      <p class="intro">
+        In summary, TCP focuses on reliable and ordered communication, while UDP focuses
+        on speed and low overhead. Neither protocol is universally better than the
+        other. The correct choice depends on what the application needs. Applications
+        that require reliable delivery will often use TCP, while applications that
+        require fast communication and can tolerate some packet loss may use UDP.
+      </p>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 7DVD</p>
+  </footer>
+</body>
+</html>
