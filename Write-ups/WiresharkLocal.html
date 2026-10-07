@@ -1,0 +1,805 @@
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wireshark and local network protocols explained through practical observation.">
+  <title>7DVD | Wireshark Local</title>
+  <link rel="stylesheet" href="/Main/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="../index.html" class="logo">7DVD</a>
+
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="/Main/AboutMe.html">About Me</a>
+        <a href="/Main/Hobbies.html">Hobbies</a>
+        <a href="/Main/Projects.html">Projects</a>
+        <a href="/Main/ContactMe.html">Contact</a>
+        <a href="/Write-ups/index.html" class="active">Write-ups</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="content">
+      <h1>Wireshark</h1>
+
+      <p class="intro">
+        Wireshark is a tool used for network analysis and cybersecurity.
+        It captures network packets and displays them in a graphical interface,
+        which makes it possible to look at what is happening on a network.
+        Compared to tools such as TCPdump or Tshark, Wireshark gives me a
+        graphical way to inspect the packets, their protocols, headers, and
+        even the bytes that are being sent across the network.
+      </p>
+
+      <p>
+        When I started using Wireshark on my own home network, I began to
+        understand that there is much more happening in the background than
+        I normally notice. Devices are constantly communicating with the
+        router, with each other, and with servers on the Internet. By looking
+        at the packets, protocols, ports, addresses, and bytes, I could start
+        connecting what I was seeing in Wireshark with what was actually
+        happening on my network.
+      </p>
+
+      <p>
+        I did not want to simply look at a list of protocols and memorize what
+        their names mean. Instead, I wanted to understand why they appeared
+        in the capture and what purpose they had. This write-up is based on
+        that process of looking at the traffic, researching what I was seeing,
+        and slowly getting a better understanding of how a local network works.
+      </p>
+
+      <h2>TCP</h2>
+
+      <p>
+        TCP, or Transmission Control Protocol, is one of the main transport
+        layer protocols. One of the most important things about TCP is that
+        it provides reliable and ordered communication between devices.
+        Before data is normally exchanged, TCP establishes a connection
+        between the two endpoints.
+      </p>
+
+      <p>
+        When looking at TCP traffic in Wireshark, one of the first things
+        that can stand out is the TCP three-way handshake. This normally
+        involves a SYN packet, a SYN-ACK packet, and an ACK packet. These
+        packets are part of establishing the TCP connection.
+      </p>
+
+      <p>
+        TCP also uses sequence numbers and acknowledgements to keep track of
+        the data being transferred. If a packet is lost, TCP can detect that
+        something went wrong and retransmit the missing data. This is one of
+        the reasons TCP is useful when the data needs to arrive correctly and
+        in the correct order.
+      </p>
+
+      <p>
+        Looking at TCP packets in Wireshark helped me understand that a
+        connection is not simply one device sending data to another. There
+        are different packets involved in establishing the connection,
+        transferring information, acknowledging data, and eventually closing
+        the connection.
+      </p>
+
+      <h2>UDP</h2>
+
+      <p>
+        UDP, or User Datagram Protocol, is another transport layer protocol.
+        Unlike TCP, UDP does not establish a connection in the same way and
+        does not provide the same guarantees that TCP does. It is designed to
+        have very little overhead, which makes it useful when speed and low
+        latency are important.
+      </p>
+
+      <p>
+        When looking at UDP traffic in Wireshark, it can look much simpler
+        than TCP because there is no TCP three-way handshake. A UDP packet
+        can simply be sent to a destination without first establishing a
+        connection.
+      </p>
+
+      <p>
+        UDP does not guarantee that every packet will arrive, and it does not
+        guarantee that packets will arrive in the same order they were sent.
+        This can sound like a disadvantage, but it can actually be useful.
+        Some applications would rather receive new information quickly than
+        wait for an older missing packet to be retransmitted.
+      </p>
+
+      <h3>Uses of UDP</h3>
+
+      <p>
+        UDP is commonly used for applications where speed and low latency are
+        important. Some examples include DNS lookups, DHCP, VoIP calls,
+        online games, streaming applications, and other types of real-time
+        communication.
+      </p>
+
+      <p>
+        In an online game, for example, it can be more important to receive
+        the latest information quickly than to retransmit an old packet.
+        If a player moves, receiving an older position several seconds later
+        would not be very useful. UDP allows this type of communication to
+        happen without waiting for every packet to be confirmed.
+      </p>
+
+      <h2>ARP</h2>
+
+      <p>
+        ARP, or Address Resolution Protocol, is used on IPv4 local networks
+        to discover the MAC address associated with an IP address. A device
+        may know that it needs to communicate with a certain IPv4 address,
+        but it also needs to know which device on the local network owns that
+        address.
+      </p>
+
+      <p>
+        When looking at ARP in Wireshark, one of the interesting things to see
+        is an ARP request. A device can essentially ask the local network who
+        has a specific IP address. The device that owns that IP address can
+        then respond with its MAC address.
+      </p>
+
+      <p>
+        This helped me understand that IP addresses and MAC addresses have
+        different purposes. An IP address is used for logical network
+        addressing, while a MAC address is used at the link layer to identify
+        a network interface on the local network.
+      </p>
+
+      <p>
+        ARP is especially important on a local IPv4 network because devices
+        need to know where to send Ethernet frames. Without resolving the
+        local IP address to a MAC address, the device would not know which
+        network interface should receive the frame.
+      </p>
+
+      <h2>DHCP</h2>
+
+      <p>
+        DHCP, or Dynamic Host Configuration Protocol, is used to automatically
+        provide devices with network configuration. When a device connects
+        to a network, it normally needs an IP address and other information
+        before it can communicate properly.
+      </p>
+
+      <p>
+        DHCP can provide information such as an IP address, subnet mask,
+        default gateway, and DNS server. This means that users normally do
+        not have to manually configure every device on a home network.
+      </p>
+
+      <p>
+        Looking at DHCP traffic in Wireshark helped me understand how a device
+        can get its network configuration when it joins a network. DHCP uses
+        several messages during the process, including Discover, Offer,
+        Request, and Acknowledgement.
+      </p>
+
+      <p>
+        This is especially useful in a home network because there can be many
+        different devices connected at the same time. Phones, laptops,
+        televisions, consoles, printers, and other devices can all receive
+        their own network configuration automatically.
+      </p>
+
+      <h2>DNS</h2>
+
+      <p>
+        DNS, or Domain Name System, is used to translate domain names into
+        IP addresses. Humans generally find names such as example.com easier
+        to remember than numerical IP addresses, while network communication
+        ultimately needs IP addresses.
+      </p>
+
+      <p>
+        When looking at DNS packets in Wireshark, I can see devices making
+        queries for domain names and receiving responses containing IP
+        addresses or other DNS information. This makes it easier to understand
+        what happens when a device needs to find a server on the Internet.
+      </p>
+
+      <p>
+        DNS is not only used for normal website lookups. It can also be used
+        to discover other services and information about a domain. This makes
+        DNS an important part of everyday network communication.
+      </p>
+
+      <h2>ICMP</h2>
+
+      <p>
+        ICMP, or Internet Control Message Protocol, is mainly used for
+        network control, diagnostics, and error reporting. One of the most
+        familiar examples of ICMP is the ping command.
+      </p>
+
+      <p>
+        When I use ping and capture the traffic in Wireshark, I can see ICMP
+        Echo Request and Echo Reply messages. This makes it possible to see
+        the packets that are actually being exchanged instead of only seeing
+        the final result reported by the command.
+      </p>
+
+      <p>
+        ICMP is also used for different types of network error and control
+        messages. This means it is not simply a protocol for ping. It helps
+        devices and network systems communicate information about what is
+        happening with IP traffic.
+      </p>
+
+      <h2>ICMPv6</h2>
+
+      <p>
+        ICMPv6 is the version of ICMP used with IPv6. It provides diagnostic
+        and error-reporting functions, but it is also an important part of
+        normal IPv6 operation.
+      </p>
+
+      <p>
+        One of the important differences I noticed when learning about IPv6
+        is that ICMPv6 is used for functions that are handled differently in
+        IPv4 networks. For example, IPv6 uses Neighbor Discovery to help
+        devices discover other devices and routers on the local network.
+      </p>
+
+      <p>
+        Looking at ICMPv6 packets in Wireshark can therefore show much more
+        than simple ping traffic. It can give an idea of how IPv6 devices
+        discover and communicate with other devices on the local network.
+      </p>
+
+      <h2>mDNS</h2>
+
+      <p>
+        mDNS, or Multicast DNS, allows devices to resolve names on a local
+        network without needing a traditional DNS server for those local
+        names. It is commonly associated with names ending in .local.
+      </p>
+
+      <p>
+        When looking at mDNS traffic in Wireshark, I can see devices asking
+        about local names and services. This can help explain how devices
+        discover each other without the user having to manually enter an IP
+        address.
+      </p>
+
+      <p>
+        mDNS can be useful for things such as discovering printers, computers,
+        media devices, and other services on a local network. It is especially
+        noticeable on networks containing devices that make heavy use of
+        automatic service discovery.
+      </p>
+
+      <h2>SSDP</h2>
+
+      <p>
+        SSDP, or Simple Service Discovery Protocol, is used for discovering
+        devices and services on a local network. It is commonly associated
+        with UPnP, which allows devices to discover and interact with other
+        devices and services automatically.
+      </p>
+
+      <p>
+        When looking at SSDP traffic in Wireshark, I can see devices sending
+        discovery messages and responding with information about available
+        services. This can explain some of the background traffic generated
+        by smart televisions, media devices, consoles, and other networked
+        equipment.
+      </p>
+
+      <p>
+        From a Wireshark perspective, SSDP is interesting because it shows
+        that devices on a local network can actively announce and search for
+        services instead of waiting for a user to manually configure every
+        connection.
+      </p>
+
+      <h2>IGMPv2</h2>
+
+      <p>
+        IGMPv2, or Internet Group Management Protocol version 2, is used by
+        IPv4 devices to manage multicast group membership. Multicast allows
+        information to be sent to a group of interested devices instead of
+        sending the same information separately to every device.
+      </p>
+
+      <p>
+        In Wireshark, IGMP traffic can show devices joining or leaving
+        multicast groups and routers managing those groups. This can be
+        useful when investigating applications and services that use multicast
+        communication.
+      </p>
+
+      <p>
+        Multicast can be useful for things such as media distribution,
+        discovery systems, and other applications where multiple devices need
+        to receive the same information. IGMP helps the network keep track of
+        which devices are interested in a particular multicast group.
+      </p>
+
+      <h2>STP</h2>
+
+      <p>
+        STP, or Spanning Tree Protocol, is designed to prevent network loops
+        in switched Ethernet networks. Loops can happen when switches have
+        multiple connections between them for redundancy.
+      </p>
+
+      <p>
+        Having redundant connections can be useful because another path may
+        be available if one link fails. However, without a mechanism to
+        control the paths, Ethernet frames can continue circulating through
+        the network and cause serious problems.
+      </p>
+
+      <p>
+        STP allows switches to determine which paths should be active and
+        which redundant paths should be blocked. If the network topology
+        changes, STP can adjust the paths.
+      </p>
+
+      <p>
+        STP may not be something I see constantly on a basic home network,
+        especially if the network only has a simple router and one switch.
+        However, it becomes much more relevant when multiple switches and
+        redundant network connections are involved.
+      </p>
+
+      <h2>DHCPv6</h2>
+
+      <p>
+        DHCPv6 is the DHCP protocol used for IPv6 networks. Similar to DHCP
+        in IPv4, it can provide devices with network configuration and other
+        information needed to operate on the network.
+      </p>
+
+      <p>
+        IPv6 also has other mechanisms for automatically configuring
+        addresses, so DHCPv6 is not simply a direct replacement for every
+        function of IPv4 DHCP. Depending on how the network is configured,
+        IPv6 devices can use different combinations of automatic
+        configuration methods.
+      </p>
+
+      <p>
+        Looking at DHCPv6 traffic can therefore help show how an IPv6 network
+        is configured and how devices receive information from the network.
+      </p>
+
+      <h2>LLDP</h2>
+
+      <p>
+        LLDP, or Link Layer Discovery Protocol, allows network devices to
+        advertise information about themselves to directly connected devices.
+        This can include information about the device, its interface, and
+        other details about the network connection.
+      </p>
+
+      <p>
+        LLDP is especially useful in managed networks because network
+        administrators can use it to understand which devices are connected
+        to which switch ports. In a home network, it may not be as visible,
+        depending on the equipment being used.
+      </p>
+
+      <p>
+        Seeing LLDP in a packet capture is a good example of how not all
+        network communication is about sending application data. Some
+        protocols exist to help the network devices understand and organize
+        the network itself.
+      </p>
+
+      <h2>NTP</h2>
+
+      <p>
+        NTP, or Network Time Protocol, is used to synchronize the clocks of
+        devices over a network. Accurate time is more important than it might
+        initially seem because many systems rely on the correct time for
+        logging, authentication, certificates, scheduled tasks, and other
+        operations.
+      </p>
+
+      <p>
+        When looking at NTP traffic in Wireshark, I can see devices
+        communicating with time servers. This is one of the examples where
+        the packet capture shows a small background communication that would
+        normally be almost invisible to the user.
+      </p>
+
+      <p>
+        Having synchronized clocks also makes troubleshooting easier because
+        logs from different devices can be compared using similar timestamps.
+      </p>
+
+      <h2>HTTP</h2>
+
+      <p>
+        HTTP, or Hypertext Transfer Protocol, is used for communication
+        between web browsers and web servers. It is the protocol behind the
+        transfer of web pages and other web resources.
+      </p>
+
+      <p>
+        HTTP normally operates at the application layer and can use TCP as
+        its transport protocol. When HTTP traffic is not encrypted, Wireshark
+        can potentially show a lot of information about the requests and
+        responses because the data is not protected by encryption.
+      </p>
+
+      <p>
+        In modern networks, most normal website traffic uses HTTPS instead
+        of plain HTTP. Because of this, HTTP may be less common when looking
+        at ordinary Internet traffic, but it is still important for
+        understanding how web communication works.
+      </p>
+
+      <h2>HTTPS</h2>
+
+      <p>
+        HTTPS is HTTP communication protected using TLS. It is used by
+        websites and web applications to protect information exchanged
+        between the client and the server.
+      </p>
+
+      <p>
+        When looking at HTTPS traffic in Wireshark, I can still see useful
+        information such as IP addresses, ports, packet sizes, timing, and
+        connection information. However, the actual application data is
+        normally encrypted, which prevents the packet contents from simply
+        being read like plain HTTP.
+      </p>
+
+      <p>
+        This was one of the interesting things to understand when using
+        Wireshark. Capturing a packet does not automatically mean that every
+        part of the communication can be read. Encryption changes what can
+        actually be observed inside the packet.
+      </p>
+
+      <h2>TLS</h2>
+
+      <p>
+        TLS, or Transport Layer Security, is a protocol used to provide
+        encryption, authentication, and integrity for network communication.
+        HTTPS is one of the most common examples of TLS being used.
+      </p>
+
+      <p>
+        When looking at TLS traffic in Wireshark, I can see parts of the TLS
+        connection process, including information exchanged during the
+        handshake. The actual protected application data is encrypted after
+        the secure connection is established.
+      </p>
+
+      <p>
+        TLS is important because it prevents someone who can observe network
+        traffic from simply reading sensitive information such as passwords,
+        messages, or other application data while it travels across the
+        network.
+      </p>
+
+      <h2>SMB</h2>
+
+      <p>
+        SMB, or Server Message Block, is commonly used for sharing files,
+        folders, printers, and other resources across a network. It is
+        especially common in Windows environments.
+      </p>
+
+      <p>
+        On a local network, SMB can allow one computer to access files stored
+        on another computer or on a network-attached storage device. This
+        means that when I see SMB traffic in Wireshark, it can be connected
+        to actual file-sharing activity happening between devices.
+      </p>
+
+      <p>
+        SMB is a good example of a protocol where looking at packets can help
+        connect network activity with something visible to the user, such as
+        opening a shared folder or accessing a file from another computer.
+      </p>
+
+      <h2>SSH</h2>
+
+      <p>
+        SSH, or Secure Shell, is used for secure remote access to another
+        computer or network device. It is commonly used by administrators
+        when they need to manage servers, Linux systems, network equipment,
+        or other devices remotely.
+      </p>
+
+      <p>
+        SSH encrypts the communication between the client and the server.
+        This means that when looking at SSH traffic in Wireshark, I can see
+        information about the connection and packets being exchanged, but
+        I cannot simply read the commands and data being transferred.
+      </p>
+
+      <p>
+        SSH is useful because it provides a secure way to manage devices
+        without sending login credentials and commands as plain text across
+        the network.
+      </p>
+
+      <h2>FTP</h2>
+
+      <p>
+        FTP, or File Transfer Protocol, is designed for transferring files
+        between systems over a network. It is an older protocol and is not
+        normally considered a secure choice for transferring sensitive data
+        because standard FTP does not encrypt the communication.
+      </p>
+
+      <p>
+        FTP is still useful to understand because it demonstrates the
+        difference between an application protocol and the security provided
+        around it. Looking at FTP traffic in Wireshark can show how commands
+        and file transfers are communicated across the network.
+      </p>
+
+      <p>
+        Secure alternatives such as SFTP or other encrypted methods are
+        generally preferred when protecting sensitive information.
+      </p>
+
+      <h2>QUIC</h2>
+
+      <p>
+        QUIC is a modern transport protocol that runs over UDP. It was
+        designed to provide fast and secure communication while avoiding
+        some of the limitations of traditional TCP-based connections.
+      </p>
+
+      <p>
+        QUIC is important because modern web communication can use it for
+        HTTP/3. When looking at a Wireshark capture, seeing UDP traffic does
+        not automatically mean that it is something simple such as DNS or
+        a game. It can also be carrying modern protocols such as QUIC.
+      </p>
+
+      <p>
+        One interesting part of QUIC is that encryption is built into the
+        protocol design. This means that Wireshark can still show useful
+        information about the packets and connection, but much of the
+        application data is protected from being directly inspected.
+      </p>
+
+      <h2>TCP vs UDP</h2>
+
+      <p>
+        In summary, TCP focuses on reliable and ordered communication, while
+        UDP focuses on speed and low overhead. TCP is useful when data needs
+        to arrive correctly and completely, while UDP is useful when fast
+        communication is more important and some packet loss can be tolerated.
+      </p>
+
+      <p>
+        Neither TCP nor UDP is always better than the other. The correct
+        protocol depends on what the application needs. TCP provides more
+        reliability and error handling, while UDP provides simpler and faster
+        communication with fewer guarantees.
+      </p>
+
+      <h2>What Each Protocol Does and Where It Is Used</h2>
+
+      <p>
+        After looking at these protocols in Wireshark, I started to see that
+        they are not just random names appearing in a packet capture. Most of
+        them have a specific job, and different parts of the network rely on
+        different protocols to communicate.
+      </p>
+
+      <p>
+        <strong>TCP</strong> TCP is mainly used when reliable and ordered
+        communication is required. It is common on the Internet, in home
+        networks, servers, websites, file transfers, and many other
+        applications. It is important because it makes sure that data can be
+        delivered reliably instead of simply being sent without confirmation.
+      </p>
+
+      <p>
+        <strong>UDP</strong> UDP is used when low overhead and fast
+        communication are important. It can be found in DNS, DHCP, online
+        games, VoIP, streaming, and other real-time applications. It is
+        important because some applications benefit more from receiving
+        information quickly than from waiting for every packet to arrive.
+      </p>
+
+      <p>
+        <strong>ARP</strong> ARP is mainly used on local IPv4 networks to
+        connect IP addresses with MAC addresses. It is important because
+        devices on an Ethernet network need to know which MAC address should
+        receive a frame.
+      </p>
+
+      <p>
+        <strong>DHCP</strong> DHCP is mainly used when devices join an IPv4
+        network and need network configuration. It is common in homes,
+        businesses, schools, and public networks. It is important because
+        manually configuring every device would become difficult as the
+        number of devices increases.
+      </p>
+
+      <p>
+        <strong>DHCPv6</strong> DHCPv6 provides configuration information
+        for IPv6 networks. It is mainly found in environments where IPv6 is
+        being used and configured with DHCPv6. It is important because IPv6
+        networks also need ways to provide devices with the information they
+        need to communicate.
+      </p>
+
+      <p>
+        <strong>DNS</strong> DNS is used almost everywhere on networks that
+        access the Internet or other named services. It translates names into
+        IP addresses and helps devices find the systems they need to contact.
+        Without DNS, users would have to rely much more heavily on remembering
+        IP addresses.
+      </p>
+
+      <p>
+        <strong>ICMP</strong> ICMP is mainly used for IPv4 network diagnostics,
+        control messages, and error reporting. It is useful in both home and
+        professional networks because it helps devices and administrators
+        understand whether communication is working correctly.
+      </p>
+
+      <p>
+        <strong>ICMPv6</strong> ICMPv6 performs similar control and diagnostic
+        functions for IPv6, while also supporting important IPv6 operations
+        such as Neighbor Discovery. It is important because IPv6 relies on
+        ICMPv6 for parts of its normal network operation.
+      </p>
+
+      <p>
+        <strong>mDNS</strong> mDNS is mainly used on local networks for
+        resolving local names and discovering devices and services. It can
+        be useful for printers, computers, media devices, and other equipment
+        that needs to discover other devices without relying on a traditional
+        DNS server.
+      </p>
+
+      <p>
+        <strong>SSDP</strong> SSDP is commonly found in local networks where
+        devices use UPnP and automatic service discovery. Smart TVs, media
+        devices, and other network equipment may use it. It is important
+        because it allows devices to discover available services without
+        requiring everything to be configured manually.
+      </p>
+
+      <p>
+        <strong>IGMPv2</strong> IGMPv2 is used on IPv4 networks to manage
+        multicast group membership. It becomes important when multiple
+        devices need to receive the same multicast traffic, such as certain
+        media or discovery services.
+      </p>
+
+      <p>
+        <strong>STP</strong> STP is mainly used in switched Ethernet
+        environments where there are multiple paths between switches. It is
+        important because it prevents network loops while still allowing
+        redundant connections to exist.
+      </p>
+
+      <p>
+        <strong>LLDP</strong> LLDP is mainly used by network devices such as
+        switches and routers to advertise information about themselves to
+        neighboring devices. It is especially useful in business and managed
+        networks because it can help identify how devices are physically and
+        logically connected.
+      </p>
+
+      <p>
+        <strong>NTP</strong> NTP is used in almost every type of network where
+        accurate system time is important. It can be found on computers,
+        servers, phones, network devices, and other systems. It is important
+        because accurate time helps with logs, authentication, certificates,
+        scheduled tasks, and troubleshooting.
+      </p>
+
+      <p>
+        <strong>HTTP</strong> HTTP is used for web communication and can be
+        found wherever web pages and web resources are transferred. It is
+        important because it forms the foundation of normal web communication,
+        although most modern Internet traffic is protected using HTTPS.
+      </p>
+
+      <p>
+        <strong>HTTPS</strong> HTTPS is used when HTTP communication needs to
+        be protected using TLS. It is extremely common on the Internet and
+        is important because it protects information exchanged between users
+        and websites from being easily read or modified while in transit.
+      </p>
+
+      <p>
+        <strong>TLS</strong> TLS is used to provide encryption, authentication,
+        and integrity for network communication. It is commonly found with
+        HTTPS but can also protect other types of applications. It is
+        important because simply capturing a packet should not mean that
+        someone can immediately read the sensitive information inside it.
+      </p>
+
+      <p>
+        <strong>SMB</strong> SMB is commonly used for file and printer
+        sharing, especially in Windows environments. It is useful in homes,
+        schools, and businesses where computers and storage devices need to
+        share resources across a local network.
+      </p>
+
+      <p>
+        <strong>SSH</strong> SSH is mainly used for secure remote management
+        of computers, servers, and network devices. It is important because
+        administrators can securely access and control another system without
+        sending their commands and credentials as plain text.
+      </p>
+
+      <p>
+        <strong>FTP</strong> FTP is used for transferring files between
+        systems. It can still be found in older systems and specific
+        environments, but standard FTP does not encrypt its traffic, which
+        makes secure alternatives preferable when sensitive information is
+        involved.
+      </p>
+
+      <p>
+        <strong>QUIC</strong> QUIC is used for modern network communication,
+        including HTTP/3. It runs over UDP and is designed for fast and
+        secure communication. It is important because it shows how modern
+        applications can build reliable and secure communication on top of
+        UDP instead of relying entirely on traditional TCP connections.
+      </p>
+
+      <h2>What I Learned From Looking at the Packets</h2>
+
+      <p>
+        Before using Wireshark, I mostly thought about a network in terms of
+        devices having IP addresses and connecting to the Internet. After
+        looking at actual packets, I started to understand that there are many
+        different processes happening in the background at the same time.
+      </p>
+
+      <p>
+        A device might first need DHCP to receive its network configuration.
+        It may then use ARP to find another device on the local network, DNS
+        to find the IP address of a server, and TCP or UDP to transport the
+        actual application data. If the communication is a website, TLS may
+        then protect the application data. Looking at these packets in
+        Wireshark made the different layers of networking feel much more
+        connected.
+      </p>
+
+      <p>
+        I also learned that the information visible in a packet depends on
+        the protocol and whether encryption is being used. Wireshark can show
+        packet headers, IP addresses, ports, packet lengths, flags, timing,
+        and bytes, but encryption can prevent the actual application data
+        from being readable.
+      </p>
+
+      <p>
+        Overall, using Wireshark on my own local network gave me a much better
+        understanding of what is happening behind the scenes. Instead of
+        seeing the network as something that simply connects my devices to
+        the Internet, I started seeing the individual protocols and packets
+        that make that communication possible. There is still a lot more to
+        learn, but looking at the traffic myself made networking much easier
+        to understand than simply reading about the protocols on their own.
+      </p>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 2026 DVD</p>
+  </footer>
+
+</body>
+</html>
+```
